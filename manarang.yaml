@@ -8,4 +8,5 @@ sites:
       to: /home/ipulmisaja/Templates/manarang2
 
 databases:
-    - manarangdb
+    - manarang1db
+    - manarang2db

@@ -15,6 +15,12 @@ export HTTPD=/opt/lampp/etc/httpd.conf
 export VHOST=/opt/lampp/etc/extra/httpd-vhosts.conf
 export LAMPP=/opt/lampp/lampp
 
+# menjalankan lampp server
+echo '--- Jalankan Linux XAMPP SERVER'
+sudo $LAMPP start
+
+echo -ne "\n"
+
 echo '--- Memulai Provision Linux XAMPP'
 
 # Menghapus seluruh isi file
@@ -98,6 +104,28 @@ do
     echo -ne "--- $(yq r $FYAML sites[${IVHOST}].map).test : #######################   (100%)\r"
     
     let IVHOST=${IVHOST}+1
+done
+
+echo -ne "\n\n"
+
+# Memasang database
+echo '--- Memasang Database'
+IDATABASE=0
+for n in $(yq r $FYAML databases[*])
+do
+    echo -ne "\n"
+
+    if ! mysql -u root -e "use $n" > /dev/null; then
+        mysql -u root -e "create database $n character set utf8mb4 collate utf8mb4_unicode_ci";
+    fi
+    
+    echo -ne "--- $(yq r $FYAML databases[${IDATABASE}]) : #####                     (33%)\r"
+    sleep 1
+    echo -ne "--- $(yq r $FYAML databases[${IDATABASE}]) : #############             (66%)\r"
+    sleep 1
+    echo -ne "--- $(yq r $FYAML databases[${IDATABASE}]) : #######################   (100%)\r"
+    
+    let IDATABASE=${IDATABASE}+1
 done
 
 echo -ne "\n\n"
