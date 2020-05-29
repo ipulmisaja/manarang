@@ -2,11 +2,8 @@
 ip: "127.0.0.1"
 
 sites:
-    - map: manarang1
-      to: /home/ipulmisaja/Templates/manarang1
-    - map: manarang2
-      to: /home/ipulmisaja/Templates/manarang2
+    - map: webcontoh
+      to: /home/user/Templates/webcontoh
 
 databases:
-    - manarang1db
-    - manarang2db
+    - webcontohdb

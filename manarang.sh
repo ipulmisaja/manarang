@@ -134,6 +134,12 @@ echo -ne "\n\n"
 echo '--- Restart Linux XAMPP SERVER'
 sudo $LAMPP restart
 
+echo -ne "\n\n"
+
+# Restart ulang DNS Masquarade
+echo '--- Restart Service dnsmasq'
+sudo systemctl restart dnsmasq
+
 echo -ne "\n"
 
 # Done
