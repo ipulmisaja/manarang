@@ -1,0 +1,13 @@
+---
+ip: "127.0.0.1"
+
+sites:
+    - map: pawa
+      to: /home/ipulmisaja/Templates/pawa
+    - map: spatula
+      to: /home/ipulmisaja/Templates/spatula
+    - map: itvalet
+      to: /home/ipulmisaja/Templates/itvalet
+
+databases:
+    - homestead
