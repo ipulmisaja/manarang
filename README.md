@@ -71,8 +71,33 @@ function manarang() {
   ```
   $ sudo apt install dnsmasq
   ```
-- Jika terjadi error port 53 lakukan troubleshoot sesuai catatan.
-- Pada systemd resolver bagian DNS isikan ip address 127.0.0.1. Untuk edit lihat catatan.
+- Jika terjadi error port 53 lakukan troubleshoot berikut.
+  Ketik pada terminal
+  ```
+  $ sudo systemctl stop systemd-resolved
+  ```
+  
+  Kemudian edit file systemd-resolve dengan mengetik
+  ```
+  $ sudo nano /etc/systemd/resolved.conf
+  ```
+  Ikuti konfigurasi berikut :
+  ```
+  DNS=127.0.0.1
+  FallbackDNS=
+  MulticastDNS=no
+  DNSSEC=no
+  DNSOverTLS=no
+  DNSStubListener=no
+  ```
+  Simpan, kemudian buat symlink dengan mengetik perintah
+  ```
+  $ sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+  ```
+  Jalankan kembali service systemd-resolve dengan cara
+  ```
+  $ sudo systemctl start systemd-resolved
+  ```
 - Kemudian edit file **dnsmasq.conf** pada direktori **/etc** lalu tambahkan pada baris paling akhir konfigurasi berikut.
 
   ```
