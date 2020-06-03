@@ -1,1 +1,3 @@
 # Daftar Website Sesuai Konfigurasi
+127.0.0.1 mysqlweb.test
+127.0.0.1 postgresqlweb.test

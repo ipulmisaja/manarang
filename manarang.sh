@@ -3,7 +3,8 @@
 #description  : Script Seperti Vagrant Provision Untuk Digunakan Pada Linux XAMPP
 #author       : Syaifur Rijal Syamsul, SST
 #date         : 29 Mei 2020
-#version      : 0.1
+#revisiondate : 3 Juni 2020
+#version      : 0.2
 #usage        : bash manarang.sh
 #notes        : Install yq package
 #bash_version : 4.1.5(1)-release
@@ -109,9 +110,9 @@ done
 echo -ne "\n\n"
 
 # Memasang database
-echo '--- Memasang Database'
-IDATABASE=0
-for n in $(yq r $FYAML databases[*])
+echo '--- Memasang Database MySQL'
+IMYSQL=0
+for n in $(yq r $FYAML mysqldb[*])
 do
     echo -ne "\n"
 
@@ -119,13 +120,34 @@ do
         mysql -u root -e "create database $n character set utf8mb4 collate utf8mb4_unicode_ci";
     fi
     
-    echo -ne "--- $(yq r $FYAML databases[${IDATABASE}]) : #####                     (33%)\r"
+    echo -ne "--- $(yq r $FYAML mysqldb[${IMYSQL}]) : #####                     (33%)\r"
     sleep 1
-    echo -ne "--- $(yq r $FYAML databases[${IDATABASE}]) : #############             (66%)\r"
+    echo -ne "--- $(yq r $FYAML mysqldb[${IMYSQL}]) : #############             (66%)\r"
     sleep 1
-    echo -ne "--- $(yq r $FYAML databases[${IDATABASE}]) : #######################   (100%)\r"
+    echo -ne "--- $(yq r $FYAML mysqldb[${IMYSQL}]) : #######################   (100%)\r"
     
-    let IDATABASE=${IDATABASE}+1
+    let IMYSQL=${IMYSQL}+1
+done
+
+echo -ne "\n\n"
+
+echo '--- Memasang Database PostgreSQL'
+IPOSTGRESQL=0
+for n in $(yq r $FYAML postgresqldb[*])
+do
+    echo -ne "\n"
+    
+    if ! psql -U postgres -lqt | cut -d \| -f 1 | grep -qw $n > /dev/null; then
+        createdb -U postgres -h localhost -p 5432 $n
+    fi
+    
+    echo -ne "--- $(yq r $FYAML postgresqldb[${IPOSTGRESQL}]) : #####                     (33%)\r"
+    sleep 1
+    echo -ne "--- $(yq r $FYAML postgresqldb[${IPOSTGRESQL}]) : #############             (66%)\r"
+    sleep 1
+    echo -ne "--- $(yq r $FYAML postgresqldb[${IPOSTGRESQL}]) : #######################   (100%)\r"
+    
+    let IPOSTGRESQL=${IPOSTGRESQL}+1
 done
 
 echo -ne "\n\n"

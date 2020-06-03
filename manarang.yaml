@@ -2,8 +2,13 @@
 ip: "127.0.0.1"
 
 sites:
-    - map: webcontoh
-      to: /home/user/Templates/webcontoh
+    - map: mysqlweb
+      to: /home/user/Templates/mysqlweb
+    - map: postgresqlweb
+      to: /home/user/Templates/postgresqlweb
 
-databases:
-    - webcontohdb
+mysqldb:
+    - mysqlwebdb
+    
+postgresqldb:
+    - postgresqlwebdb
