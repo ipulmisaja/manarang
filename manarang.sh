@@ -3,8 +3,8 @@
 #description  : Script Seperti Vagrant Provision Untuk Digunakan Pada Linux XAMPP
 #author       : Syaifur Rijal Syamsul, SST
 #date         : 29 Mei 2020
-#revisiondate : 3 Juni 2020
-#version      : 0.2
+#revisiondate : 4 Juni 2020
+#version      : 0.3
 #usage        : bash manarang.sh
 #notes        : Install yq package
 #bash_version : 4.1.5(1)-release
@@ -12,13 +12,17 @@
 
 export HOSTS=$HOME/Public/Manarang/hosts
 export FYAML=$HOME/Public/Manarang/manarang.yaml
-export HTTPD=/opt/lampp/etc/httpd.conf
-export VHOST=/opt/lampp/etc/extra/httpd-vhosts.conf
-export LAMPP=/opt/lampp/lampp
+
+export LAMPP=/opt/lampp
+export HTTPD=$LAMPP/etc/httpd.conf
+export VHOST=$LAMPP/etc/extra/httpd-vhosts.conf
+
+export MYSQLPATH=/opt/lampp/bin
+export PGSQLPATH=/opt/lampp/postgresql
 
 # menjalankan lampp server
 echo '--- Jalankan Linux XAMPP SERVER'
-sudo $LAMPP start
+sudo $LAMPP/lampp start && bash $PGSQLPATH/postgresql.sh start
 
 echo -ne "\n"
 
@@ -116,8 +120,8 @@ for n in $(yq r $FYAML mysqldb[*])
 do
     echo -ne "\n"
 
-    if ! mysql -u root -e "use $n" > /dev/null; then
-        mysql -u root -e "create database $n character set utf8mb4 collate utf8mb4_unicode_ci";
+    if ! $MYSQLPATH/mysql -u root -e "use $n" > /dev/null; then
+        $MYSQLPATH/mysql -u root -e "create database $n character set utf8mb4 collate utf8mb4_unicode_ci";
     fi
     
     echo -ne "--- $(yq r $FYAML mysqldb[${IMYSQL}]) : #####                     (33%)\r"
@@ -137,8 +141,8 @@ for n in $(yq r $FYAML postgresqldb[*])
 do
     echo -ne "\n"
     
-    if ! psql -U postgres -lqt | cut -d \| -f 1 | grep -qw $n > /dev/null; then
-        createdb -U postgres -h localhost -p 5432 $n
+    if ! $PGSQLPATH/bin/psql -U postgres -lqt | cut -d \| -f 1 | grep -qw $n > /dev/null; then
+        $PGSQLPATH/bin/createdb -U postgres -h localhost -p 5432 $n
     fi
     
     echo -ne "--- $(yq r $FYAML postgresqldb[${IPOSTGRESQL}]) : #####                     (33%)\r"
@@ -154,9 +158,9 @@ echo -ne "\n\n"
 
 # Restart ulang lampp server
 echo '--- Restart Linux XAMPP SERVER'
-sudo $LAMPP restart
+sudo $LAMPP/lampp restart && bash $PGSQLPATH/postgresql.sh restart
 
-echo -ne "\n\n"
+echo -ne "\n"
 
 # Restart ulang DNS Masquarade
 echo '--- Restart Service dnsmasq'
