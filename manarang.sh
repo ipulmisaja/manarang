@@ -3,8 +3,8 @@
 #description  : Script Seperti Vagrant Provision Untuk Digunakan Pada Linux XAMPP
 #author       : Syaifur Rijal Syamsul, SST
 #date         : 29 Mei 2020
-#revisiondate : 4 Juni 2020
-#version      : 0.3
+#revisiondate : 9 Juni 2020
+#version      : 0.4
 #usage        : bash manarang.sh
 #notes        : Install yq package
 #bash_version : 4.1.5(1)-release
@@ -95,7 +95,7 @@ do
     echo "# $(yq r $FYAML sites[${IVHOST}].map).test" | sudo tee -a $VHOST > /dev/null
     echo "<VirtualHost *:80>" | sudo tee -a $VHOST > /dev/null
     echo -e "\tServerAdmin webmaster@$(yq r $FYAML sites[${IVHOST}].map).test" | sudo tee -a $VHOST > /dev/null
-    echo -e "\tDocumentRoot \"$n/public\"" | sudo tee -a $VHOST > /dev/null
+    echo -e "\tDocumentRoot \"$n" | sudo tee -a $VHOST > /dev/null
     echo -e "\tServerName $(yq r $FYAML sites[${IVHOST}].map).test" | sudo tee -a $VHOST > /dev/null
     echo -e "\tServerAlias www.$(yq r $FYAML sites[${IVHOST}].map).test" | sudo tee -a $VHOST > /dev/null
     echo -e "\tErrorLog \"logs/$(yq r $FYAML sites[${IVHOST}].map).dev-error_log\"" | sudo tee -a $VHOST > /dev/null
