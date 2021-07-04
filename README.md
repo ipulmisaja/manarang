@@ -36,7 +36,7 @@ $ sudo apt update
 $ sudo install yq -y
 ```
 
-> Pada versi 4.*, command yq r sudah dihapus sehingga menyebabkan beberapa error pada script. Sementara jangan gunakan dulu repository di atas sampai perbaikan script berikutnya. Agar dapat menjalankan script silahkan unduh yq pada (tautan berikut)[https://launchpad.net/~rmescandon/+archive/ubuntu/yq/+files/yq_3.3.2_amd64.deb]  
+> Pada versi 4.*, command yq r sudah dihapus sehingga menyebabkan beberapa error pada script. Sementara jangan gunakan dulu repository di atas sampai perbaikan script berikutnya. Agar dapat menjalankan script silahkan unduh yq pada [tautan berikut](https://launchpad.net/~rmescandon/+archive/ubuntu/yq/+files/yq_3.3.2_amd64.deb)  
 
 #### - Clone Repository
 Clone repository ini kedalam folder **Public**.
