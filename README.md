@@ -46,23 +46,25 @@ Untuk bisa mengakses script dari direktori apapun buat fungsi berikut di dalam f
 
 ```
 function manarang() {
+    export PGSQLPATH=/opt/lampp/postgresql
+
     cd ~/Public/Manarang
-        
+
     command="$1"
-        
+
     if [ "$command" = "edit" ]; then
         # Sesuaikan dengan editor anda
-        kate manarang.yaml 
+        nano manarang.yaml
     elif [ "$command" = "provision" ]; then
         bash manarang.sh
     elif [ "$command" = "up" ]; then
-        (sudo /opt/lampp/lampp start)
+        (sudo /opt/lampp/lampp start && bash $PGSQLPATH/postgresql.sh start)
     elif [ "$command" = "halt" ]; then
-        (sudo /opt/lampp/lampp stop)
+        (sudo /opt/lampp/lampp stop && bash $PGSQLPATH/postgresql.sh stop)
     else
-        (sudo /opt/lampp/lampp restart)
+        (sudo /opt/lampp/lampp restart && bash $PGSQLPATH/postgresql.sh restart)
     fi
-        
+
     cd -
 }
 ```
