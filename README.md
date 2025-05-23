@@ -38,6 +38,9 @@ $ sudo install yq -y
 
 > Pada versi 4.*, command yq r sudah dihapus sehingga menyebabkan beberapa error pada script. Sementara jangan gunakan dulu repository di atas sampai perbaikan script berikutnya. Agar dapat menjalankan script silahkan unduh yq pada [tautan berikut](https://mega.nz/file/298G3KYC#rY1EtwPfaUzwetf7puYNPzwRtwtGWIQd6is-Tcp8Mfk)  
 
+#### - PostgreSQL
+Default XAMPP hanya menyertakan database MySQL, jika ingin menggunakan PostgreSQL dapat diunduh pada [tautan berikut](https://mega.nz/file/jxkwxBRJ#Th2Pkvesoq1czvFwrcHbJBdAbbpMS2xc7TwRH16rXDE)
+
 #### - Clone Repository
 Clone repository ini kedalam folder **Public**.
 
